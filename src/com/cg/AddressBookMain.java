@@ -19,9 +19,15 @@ public class AddressBookMain implements AddressBook {
 	public void createContact(String firstName, String lastName, String address, String city, String state, String zip,
 			String phoneNo, String email) {
 		String name = (firstName + lastName).toLowerCase();
+		Boolean keyPresent = contactMap.containsKey(name);
+		if (keyPresent) {
+		System.out.println("This name is already present\n");
+		}
+		else {
 		Contacts person = new Contacts(firstName, lastName, address, city, state, zip, phoneNo, email);
 		contactList.add(person);
 		contactMap.put(name, person);
+	}
 	}
 
 	@Override
@@ -83,6 +89,7 @@ public class AddressBookMain implements AddressBook {
 	public void showDetails() {
 		for (int i = 0; i < contactList.size(); i++) {
 			Contacts person = contactList.get(i);
+			System.out.println("\nContact :" + (i+1));
 			System.out.println(person);
 		if(contactList.size() == 0)
 			System.out.println("No contacts to show");
