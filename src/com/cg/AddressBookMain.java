@@ -21,13 +21,12 @@ public class AddressBookMain implements AddressBook {
 		String name = (firstName + lastName).toLowerCase();
 		Boolean keyPresent = contactMap.containsKey(name);
 		if (keyPresent) {
-		System.out.println("This name is already present\n");
+			System.out.println("This name is already present\n");
+		} else {
+			Contacts person = new Contacts(firstName, lastName, address, city, state, zip, phoneNo, email);
+			contactList.add(person);
+			contactMap.put(name, person);
 		}
-		else {
-		Contacts person = new Contacts(firstName, lastName, address, city, state, zip, phoneNo, email);
-		contactList.add(person);
-		contactMap.put(name, person);
-	}
 	}
 
 	@Override
@@ -86,24 +85,26 @@ public class AddressBookMain implements AddressBook {
 		}
 	}
 
+	@Override
 	public void showDetails() {
 		for (int i = 0; i < contactList.size(); i++) {
 			Contacts person = contactList.get(i);
-			System.out.println("\nContact :" + (i+1));
+			System.out.println("\nContact :" + (i + 1));
 			System.out.println(person);
-		if(contactList.size() == 0)
-			System.out.println("No contacts to show");
+			if (contactList.size() == 0)
+				System.out.println("No contacts to show");
 		}
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program.");
 		AddressBookMain contact1 = new AddressBookMain();
+		AddressBookMain contact2 = new AddressBookMain();
 
 		Scanner in = new Scanner(System.in);
 		int option = 0;
 		while (option != 4) {
-
+			System.out.println("2 AddressBooks are available");
 			System.out.println("\nTo add new contact press 1");
 			System.out.println("To edit existing contact press 2");
 			System.out.println("To delete existing press 3");
@@ -111,31 +112,72 @@ public class AddressBookMain implements AddressBook {
 			option = in.nextInt();
 
 			if (option == 1) {
-				System.out.println(
-						"Enter First Name , Last Name, Address, City, State, Zip, Phone No, Email Id in the given order");
+				System.out.println("Which Address Book? Enter 1 or 2");
+				// for 1st address book
+				if (in.nextInt() == 1) {
+					System.out.println(
+							"Enter First Name , Last Name, Address, City, State, Zip, Phone No, Email Id in the given order");
 
-				contact1.createContact(in.next(), in.next(), in.next(), in.next(), in.next(), in.next(), in.next(),
-						in.next());
-				contact1.showDetails();
+					contact1.createContact(in.next(), in.next(), in.next(), in.next(), in.next(), in.next(), in.next(),
+							in.next());
+
+				}
+				// for 2nd address book
+				else {
+					System.out.println(
+							"Enter First Name , Last Name, Address, City, State, Zip, Phone No, Email Id in the given order");
+
+					contact2.createContact(in.next(), in.next(), in.next(), in.next(), in.next(), in.next(), in.next(),
+							in.next());
+
+				}
 			}
 
 			else if (option == 2) {
+				System.out.println("Which Address Book? Enter 1 or 2");
+				// for 1st address book
+				if (in.nextInt() == 1) {
+					System.out.println("Enter your first name.");
+					String firstName = in.next();
+					System.out.println("Enter your last name.");
+					String lastName = in.next();
+					contact1.editContact(firstName, lastName);
 
-				System.out.println("Enter your first name.");
-				String firstName = in.next();
-				System.out.println("Enter your last name.");
-				String lastName = in.next();
-				contact1.editContact(firstName, lastName);
-				contact1.showDetails();
+				}
+				// for 2nd address book
+				else {
+					System.out.println("Enter your first name.");
+					String firstName = in.next();
+					System.out.println("Enter your last name.");
+					String lastName = in.next();
+					contact2.editContact(firstName, lastName);
+
+				}
 			} else if (option == 3) {
-				System.out.println("Enter your first name.");
-				String firstName = in.next();
-				System.out.println("Enter your last name.");
-				String lastName = in.next();
-				contact1.deleteContact(firstName, lastName);
-				contact1.showDetails();
-			}
+				System.out.println("Which Address Book? Enter 1 or 2");
+				// for 1st address book
+				if (in.nextInt() == 1) {
+					System.out.println("Enter your first name.");
+					String firstName = in.next();
+					System.out.println("Enter your last name.");
+					String lastName = in.next();
+					contact1.deleteContact(firstName, lastName);
 
+				}
+				// for 2nd address book
+				else {
+					System.out.println("Enter your first name.");
+					String firstName = in.next();
+					System.out.println("Enter your last name.");
+					String lastName = in.next();
+					contact2.deleteContact(firstName, lastName);
+
+				}
+			}
+			System.out.println("\nAddress Book 1");
+			contact1.showDetails();
+			System.out.println("\nAddress Book 2");
+			contact2.showDetails();
 			System.out.println("\nThank You");
 		}
 
