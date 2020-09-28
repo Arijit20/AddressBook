@@ -87,12 +87,12 @@ public class AddressBookMain implements AddressBook {
 
 	@Override
 	public void showDetails() {
+		if (contactList.size() == 0)
+		System.out.println("No contacts to show");
 		for (int i = 0; i < contactList.size(); i++) {
 			Contacts person = contactList.get(i);
 			System.out.println("\nContact :" + (i + 1));
 			System.out.println(person);
-			if (contactList.size() == 0)
-				System.out.println("No contacts to show");
 		}
 	}
 
